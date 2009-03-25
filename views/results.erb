@@ -1,0 +1,29 @@
+<% @title = 'Search results for "' + @q + '"' %>
+<div class="search_results">
+	<% if @boss.respond_to?('results') %>
+	<p>
+		Results <%= @boss.start.succ %>-<%= @boss.start.to_i + @boss.count.to_i %> of <%= @boss.totalhits %> for <strong><%= h @q %></strong>
+	</p>
+	<hr />
+	<ul>
+		<% @boss.results.each do |result| %>
+			<li>
+				<a class="search_result_title" title="<%= result.title %>" href="<%= result.clickurl %>"><%= result.title %></a>
+				<br />
+				<span class="abstract">
+					<%= result.abstract %>
+				</span>
+				<br />
+				<div class="url"><%= result.dispurl %></div>
+			</li>
+		<% end %>
+	</ul>
+	<p>
+		<%= previous_page %> | <%= next_page %>	
+	</p>
+	<% else %>
+	<p>
+		No results found for <strong><%= h @q %></strong>.
+	</p>
+	<% end %>
+</div>
